@@ -1,0 +1,22 @@
+:root {
+	--font: system-ui, Avenir, Ubuntu, Helvetica, Arial, sans-serif;
+	--border-color: #bbb;
+	font-family: var(--font);
+	line-height: 1.5;
+	font-weight: 400;
+	background-color: #ddd;
+	font-synthesis: none;
+	text-rendering: optimizeLegibility;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+input,
+button {
+	font-size: 1rem;
+	font-family: var(--font);
+}
+
+body {
+	margin: 0;
+}

@@ -1,0 +1,9 @@
+.panel {
+	border: 1px solid #333;
+	transition: all 0.3s;
+	padding: 0.5rem;
+
+	&:hover {
+		box-shadow: 0 0 10px #777;
+	}
+}
