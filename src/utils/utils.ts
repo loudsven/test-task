@@ -14,7 +14,7 @@ export const deepClone = <T>(obj: T): T => {
 	}
 }
 
-export const setWithoutCreate = (obj, path: string, value) => {
+export const setWithoutCreate = (obj: any, path: string, value: any) => {
 	if (Object(obj) !== obj) return obj
 
 	const keys = path.match(/[^.[\]]+/g) || []

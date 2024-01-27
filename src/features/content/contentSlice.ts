@@ -29,13 +29,11 @@ const contentSlice = createSlice({
 				action.payload.path,
 				stringToNumber(action.payload.value),
 			)
-			console.log(temp.content)
 			state.content = temp.content
 		},
 
 		addContentItem: (state, action: PayloadAction<string>) => {
 			const json = parseStringToJSON(action.payload)
-			console.log('json', json)
 			const newItem = JSON.parse(json)
 			state.content.push(newItem)
 		},
