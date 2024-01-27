@@ -1,23 +1,6 @@
-import { useState } from 'react'
 import { ContentItem } from '../../types/data'
-import { deepClone, setWithoutCreate, stringToNumber } from '../../utils/utils'
 
-export const useContent = () => {
-	const [content, setContent] = useState<ContentItem[]>(initialContent)
-
-	const update = (path: string, value: string) => {
-		const temp: { content: ContentItem[] } = { content: deepClone(content) }
-		setWithoutCreate(temp, path, stringToNumber(value))
-		setContent(temp.content)
-	}
-
-	return {
-		content,
-		update,
-	}
-}
-
-const initialContent: ContentItem[] = [
+export const content: ContentItem[] = [
 	{
 		type: 'panel',
 		props: {

@@ -1,5 +1,5 @@
 import { describe, test, expect } from 'bun:test'
-import { deepClone, setWithoutCreate } from './utils'
+import { deepClone, parseStringToJSON, setWithoutCreate } from './utils'
 
 describe('Deep clone', () => {
 	test('is not the same reference', () => {

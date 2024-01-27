@@ -1,32 +1,26 @@
+import { useSelector } from 'react-redux'
 import { ContentItem } from '../../types/data'
+import { selectContent } from '../../features/content/contentSlice'
 import { Button } from '../Button/Button'
 import { Label } from '../Label/Label'
 import { Panel } from '../Panel/Panel'
+
 import cl from './Main.module.css'
 
-interface MainProps {
-	content: ContentItem[]
+export const Main = () => {
+	const content = useSelector(selectContent)
+	const mappedContent = mapContent(content)
+
+	return <div className={cl.content}>{mappedContent.map((item) => item)}</div>
 }
 
-export const Main: React.FC<MainProps> = ({ content }) => {
-	const map = renderContent(content)
-
-	return (
-		<div className={cl.content}>
-			{map.map((item, index) => {
-				return item
-			})}
-		</div>
-	)
-}
-
-const renderContent = (content: ContentItem[]) => {
+const mapContent = (content: ContentItem[]) => {
 	return content.map((item, index) => {
 		if (item.type === 'panel') {
 			if (item.content) {
 				return (
 					<Panel key={index} {...item.props}>
-						{renderContent(item.content)}
+						{mapContent(item.content)}
 					</Panel>
 				)
 			}

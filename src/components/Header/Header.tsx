@@ -1,16 +1,16 @@
 import { useState } from 'react'
+import { useDispatch } from 'react-redux'
+
 import { Button } from '../Button/Button'
 import { Input } from '../Input/Input'
 
 import cl from './Header.module.css'
+import { update, addContentItem } from '../../features/content/contentSlice'
 
-interface HeaderProps {
-	submit: (path: string, value: string) => void
-}
-
-export const Header: React.FC<HeaderProps> = ({ submit }) => {
+export const Header = () => {
 	const [path, setPath] = useState('')
 	const [value, setValue] = useState('')
+	const dispatch = useDispatch()
 
 	const pathHandler: React.ChangeEventHandler<HTMLInputElement> = (e) => {
 		setPath(e.target.value)
@@ -22,7 +22,11 @@ export const Header: React.FC<HeaderProps> = ({ submit }) => {
 
 	const submitHandler: React.FormEventHandler = (e) => {
 		e.preventDefault()
-		submit(path, value)
+		if (path !== '') {
+			dispatch(update({ path, value }))
+		} else {
+			dispatch(addContentItem(value))
+		}
 	}
 
 	return (

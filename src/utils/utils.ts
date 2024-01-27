@@ -1,10 +1,10 @@
-export const deepClone = (obj) => {
+export const deepClone = <T>(obj: T): T => {
 	if (obj === null || typeof obj !== 'object') {
 		return obj
 	}
 
 	if (Array.isArray(obj)) {
-		return obj.map((element) => deepClone(element))
+		return obj.map((element) => deepClone(element)) as T
 	}
 	return {
 		...obj,
@@ -14,33 +14,14 @@ export const deepClone = (obj) => {
 	}
 }
 
-export const setByPath = (obj: AnyObject, path: string | string[], value) => {
-	if (Object(obj) !== obj) return obj
-	path = path.toString().match(/[^.[\]]+/g) || []
-	let key = (path
-		.slice(0, -1)
-		.reduce(
-			(a, c, i) =>
-				Object(a[c]) === a[c]
-					? a[c]
-					: (a[c] = Math.abs(path[i + 1]) >> 0 === +path[i + 1] ? [] : {}),
-			obj,
-		)[path[path.length - 1]] = value)
-	return obj
-}
-
-export const setWithoutCreate = (
-	obj: AnyObject,
-	path: string | string[],
-	value,
-) => {
+export const setWithoutCreate = (obj, path: string, value) => {
 	if (Object(obj) !== obj) return obj
 
-	path = path.toString().match(/[^.[\]]+/g) || []
+	const keys = path.match(/[^.[\]]+/g) || []
 
-	const lastIndex = path.length - 1
+	const lastIndex = keys.length - 1
 
-	path.reduce((acc, key, index) => {
+	keys.reduce((acc, key, index) => {
 		if (index === lastIndex && acc.hasOwnProperty(key)) {
 			acc[key] = value
 		} else {
@@ -60,4 +41,8 @@ export const stringToNumber = (value: string) => {
 		return value
 	}
 	return Number(value)
+}
+
+export function parseStringToJSON(input: string): any {
+	return input.replace(/(?<!")\b([a-z]+)\b(?!")/g, '"$1"')
 }
